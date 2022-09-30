@@ -18,5 +18,10 @@ $(EXE): $(OBJS)
 	$(CC) $(LDFLAGS)  $^ -o $@
 
 # Pour se connecter
-JLink:
+connect:
 	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
+
+run: $(EXE)
+	$(GDB) -x ses203.gdb $<
+
+
