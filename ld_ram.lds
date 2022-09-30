@@ -4,6 +4,8 @@ MEMORY{
     sram2 (wx) : ORIGIN = 0x10000000, LENGTH = 32K
 }
 
+ENTRY(main)
+
 SECTIONS
 {
     .text : {
@@ -23,4 +25,3 @@ SECTIONS
     } > sram1
 }
 
-ENTRY(main)
