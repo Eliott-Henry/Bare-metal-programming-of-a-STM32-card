@@ -10,7 +10,7 @@ LDFLAGS = -nostdlib -T ld_ram.lds
 TARGET_ARCH = -mcpu=cortex-m4 -mthumb # We can add -mfloat-abi=hard -mpfu=fpv4-sp-d16 (pour compile.c)
 
 EXE = prog
-OBJS = main.o 
+OBJS = main.o crt0.o init.o
 
 all: $(EXE)
 
@@ -24,4 +24,5 @@ connect:
 run: $(EXE)
 	$(GDB) -x ses203.gdb $<
 
-
+objdump:
+	arm-none-eabi-objdump -h $(EXE)

@@ -4,7 +4,7 @@ MEMORY{
     sram2 (wx) : ORIGIN = 0x10000000, LENGTH = 32K
 }
 
-ENTRY(main)
+ENTRY(_start)
 
 SECTIONS
 {
@@ -21,7 +21,10 @@ SECTIONS
     } > sram1
  
     .bss : {
+        __bss_start = .;
         *(.bss) *(COMMON)
+        __bss_end = .;
     } > sram1
 }
 
+_stack_start = ORIGIN(sram2) + LENGTH(sram2);
