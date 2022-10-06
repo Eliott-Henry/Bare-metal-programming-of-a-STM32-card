@@ -1,3 +1,5 @@
+# Problème avec ce Makefile : le main.o ne se reconstruit pas automatiquement lorsque t1.h et t2.h sont modifiés
+
 PREFIX = arm-none-eabi-
 CC = $(PREFIX)gcc
 CFLAGS = -Wall -Werror -g -Og 
