@@ -4,13 +4,13 @@ GDB = $(PREFIX)gdb
 LD = $(PREFIX)ld
 AS = $(PREFIX)as
 
-CFLAGS = -ffreestanding -g -O1 # -c 
+CFLAGS = -ffreestanding -Wall -Wextra -Werror  -g -O3 # -c 
 LDFLAGS = -nostdlib -T ld_ram.lds
 #CPPFLAGS (préprocesseur)
 TARGET_ARCH = -mcpu=cortex-m4 -mthumb # We can add -mfloat-abi=hard -mpfu=fpv4-sp-d16 (pour compile.c)
 
 EXE = prog
-OBJS = main.o crt0.o init.o
+OBJS = main.o crt0.o init.o #memfuncs.o
 
 all: $(EXE)
 
@@ -26,3 +26,7 @@ run: $(EXE)
 
 objdump:
 	arm-none-eabi-objdump -h $(EXE)
+
+clean:
+	rm -f *.o
+	rm -f $(EXE)
