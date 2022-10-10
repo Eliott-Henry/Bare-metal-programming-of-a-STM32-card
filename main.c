@@ -1,3 +1,5 @@
+#include "led.h"
+
 int fibo(int n){
     
     if(n==0){
@@ -11,5 +13,19 @@ int fibo(int n){
 }
 
 int main(){
-    return fibo(8);
+    
+    //return fibo(8);
+    
+    led_init();
+    for(int i = 0; i < 100000;i++){
+        led_g_on();
+        for(int k = 0; k < 1000000; k++){
+            asm volatile("nop");
+        }
+        led_g_off();
+        for(int k = 0; k < 1000000; k++){
+            asm volatile("nop");
+        }
+    }
+    return 0;
 }
