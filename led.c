@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "led.h"
+#include "stm32l475xx.h"
 
 // Adresses définies p.77
 
