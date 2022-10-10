@@ -14,7 +14,7 @@ int fibo(int n){
 
 int main(){
     //return fibo(8);
-    
+    clocks_init();
     led_init();
     for(int i = 0; i < 100000;i++){
         led(LED_OFF);
