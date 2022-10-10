@@ -28,5 +28,5 @@ objdump:
 	arm-none-eabi-objdump -h $(EXE)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 	rm -f $(EXE)
