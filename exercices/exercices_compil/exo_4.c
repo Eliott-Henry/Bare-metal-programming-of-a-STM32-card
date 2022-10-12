@@ -21,6 +21,24 @@ int main() {
 
 
 /*
+
+Avec les indices de l'énoncé :
+
+En opti -O0 avec objdump -s, on voit que rodata contient deux fois Hello World!
+En fait, les 32 derniers bits de la chaîne ne sont pas les même mais ils représentent "...."
+
+Ensuite on utilise objdump -d pour voir quelle est la fonction qui utilise msg
+En fait on utilise puts au lieu de printf. Puts est utilisée pour écrire directement une chaine de caractère alors que printf prend en paramètre différents formats
+C'est sûrement une optimisation
+
+
+Lorsque l'on compile en -O1, 
+Une section rodata.str1.4 qui contient à la fois Hello World!.... et les 2 chaînes de formatage du printf  
+la section rodata ne contient plus que Hello World!.. (avec seulement .. au lieu de ....)
+Cela permet sûrement d'optimiser le programme 
+
+Question 1:
+
 -Os : optimisation en taille 
 Text 00000000
 .text.startup 00000068
@@ -72,4 +90,6 @@ Pour la taille de bss :
 Elle vaut 5 partout
 (un int sur 32 bits donc 4 octets et la variable static z sur 8 bits donc 1 octet)
 L'optimisation n'a pas d'effet
+
+
 */
