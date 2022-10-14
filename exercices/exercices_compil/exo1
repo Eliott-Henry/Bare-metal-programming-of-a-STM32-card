@@ -1,4 +1,4 @@
-// Dans le premier cas (avec i est un uint8_t)
+// Dans le premier cas (avec i est un uint8_t), gcc donne :
 g:
 	mov	r0, #0
 	bx	lr
@@ -32,7 +32,7 @@ a:
 	.space	4
 	.ident	"GCC: (GNU) 11.3.1 20220712"
 
-// Dans le second cas (avec i est un unsigned int) :
+// Dans le second cas (avec i est un unsigned int), gcc donne :
 g:
 	mov	r0, #0
 	bx	lr
