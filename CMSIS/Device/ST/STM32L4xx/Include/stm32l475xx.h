@@ -7,7 +7,7 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheralï¿½s registers hardware
   *
   ******************************************************************************
   * @attention
@@ -8106,8 +8106,9 @@ typedef struct
 #define GPIO_MODER_MODE0_Pos           (0U)
 #define GPIO_MODER_MODE0_Msk           (0x3UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000003 */
 #define GPIO_MODER_MODE0               GPIO_MODER_MODE0_Msk
-#define GPIO_MODER_MODE0_0             (0x1UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000001 */
-#define GPIO_MODER_MODE0_1             (0x2UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000002 */
+#define GPIO_MODER_MODE0_0             (0x1UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000001 */ /* bit 0 du mode 0*/
+#define GPIO_MODER_MODE0_1             (0x2UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000002 */ / bit 1 du mode 0*/
+
 #define GPIO_MODER_MODE1_Pos           (2U)
 #define GPIO_MODER_MODE1_Msk           (0x3UL << GPIO_MODER_MODE1_Pos)         /*!< 0x0000000C */
 #define GPIO_MODER_MODE1               GPIO_MODER_MODE1_Msk
@@ -8148,11 +8149,13 @@ typedef struct
 #define GPIO_MODER_MODE8               GPIO_MODER_MODE8_Msk
 #define GPIO_MODER_MODE8_0             (0x1UL << GPIO_MODER_MODE8_Pos)         /*!< 0x00010000 */
 #define GPIO_MODER_MODE8_1             (0x2UL << GPIO_MODER_MODE8_Pos)         /*!< 0x00020000 */
+
 #define GPIO_MODER_MODE9_Pos           (18U)
 #define GPIO_MODER_MODE9_Msk           (0x3UL << GPIO_MODER_MODE9_Pos)         /*!< 0x000C0000 */
 #define GPIO_MODER_MODE9               GPIO_MODER_MODE9_Msk
 #define GPIO_MODER_MODE9_0             (0x1UL << GPIO_MODER_MODE9_Pos)         /*!< 0x00040000 */
 #define GPIO_MODER_MODE9_1             (0x2UL << GPIO_MODER_MODE9_Pos)         /*!< 0x00080000 */
+
 #define GPIO_MODER_MODE10_Pos          (20U)
 #define GPIO_MODER_MODE10_Msk          (0x3UL << GPIO_MODER_MODE10_Pos)        /*!< 0x00300000 */
 #define GPIO_MODER_MODE10              GPIO_MODER_MODE10_Msk
@@ -8178,6 +8181,7 @@ typedef struct
 #define GPIO_MODER_MODE14              GPIO_MODER_MODE14_Msk
 #define GPIO_MODER_MODE14_0            (0x1UL << GPIO_MODER_MODE14_Pos)        /*!< 0x10000000 */
 #define GPIO_MODER_MODE14_1            (0x2UL << GPIO_MODER_MODE14_Pos)        /*!< 0x20000000 */
+
 #define GPIO_MODER_MODE15_Pos          (30U)
 #define GPIO_MODER_MODE15_Msk          (0x3UL << GPIO_MODER_MODE15_Pos)        /*!< 0xC0000000 */
 #define GPIO_MODER_MODE15              GPIO_MODER_MODE15_Msk
@@ -8781,9 +8785,11 @@ typedef struct
 #define GPIO_BSRR_BS13_Pos             (13U)
 #define GPIO_BSRR_BS13_Msk             (0x1UL << GPIO_BSRR_BS13_Pos)           /*!< 0x00002000 */
 #define GPIO_BSRR_BS13                 GPIO_BSRR_BS13_Msk
+
 #define GPIO_BSRR_BS14_Pos             (14U)
 #define GPIO_BSRR_BS14_Msk             (0x1UL << GPIO_BSRR_BS14_Pos)           /*!< 0x00004000 */
 #define GPIO_BSRR_BS14                 GPIO_BSRR_BS14_Msk
+
 #define GPIO_BSRR_BS15_Pos             (15U)
 #define GPIO_BSRR_BS15_Msk             (0x1UL << GPIO_BSRR_BS15_Pos)           /*!< 0x00008000 */
 #define GPIO_BSRR_BS15                 GPIO_BSRR_BS15_Msk
@@ -11086,9 +11092,11 @@ typedef struct
 #define RCC_APB2RSTR_TIM8RST_Pos             (13U)
 #define RCC_APB2RSTR_TIM8RST_Msk             (0x1UL << RCC_APB2RSTR_TIM8RST_Pos) /*!< 0x00002000 */
 #define RCC_APB2RSTR_TIM8RST                 RCC_APB2RSTR_TIM8RST_Msk
+
 #define RCC_APB2RSTR_USART1RST_Pos           (14U)
 #define RCC_APB2RSTR_USART1RST_Msk           (0x1UL << RCC_APB2RSTR_USART1RST_Pos) /*!< 0x00004000 */
 #define RCC_APB2RSTR_USART1RST               RCC_APB2RSTR_USART1RST_Msk
+
 #define RCC_APB2RSTR_TIM15RST_Pos            (16U)
 #define RCC_APB2RSTR_TIM15RST_Msk            (0x1UL << RCC_APB2RSTR_TIM15RST_Pos) /*!< 0x00010000 */
 #define RCC_APB2RSTR_TIM15RST                RCC_APB2RSTR_TIM15RST_Msk
@@ -11126,15 +11134,18 @@ typedef struct
 #define RCC_AHB1ENR_TSCEN                    RCC_AHB1ENR_TSCEN_Msk
 
 /********************  Bit definition for RCC_AHB2ENR register  ***************/
-#define RCC_AHB2ENR_GPIOAEN_Pos              (0U)
+#define RCC_AHB2ENR_GPIOAEN_Pos              (0U) /* bit numÃ©ro 0 */
 #define RCC_AHB2ENR_GPIOAEN_Msk              (0x1UL << RCC_AHB2ENR_GPIOAEN_Pos) /*!< 0x00000001 */
 #define RCC_AHB2ENR_GPIOAEN                  RCC_AHB2ENR_GPIOAEN_Msk
+
 #define RCC_AHB2ENR_GPIOBEN_Pos              (1U)
 #define RCC_AHB2ENR_GPIOBEN_Msk              (0x1UL << RCC_AHB2ENR_GPIOBEN_Pos) /*!< 0x00000002 */
 #define RCC_AHB2ENR_GPIOBEN                  RCC_AHB2ENR_GPIOBEN_Msk
+
 #define RCC_AHB2ENR_GPIOCEN_Pos              (2U)
 #define RCC_AHB2ENR_GPIOCEN_Msk              (0x1UL << RCC_AHB2ENR_GPIOCEN_Pos) /*!< 0x00000004 */
 #define RCC_AHB2ENR_GPIOCEN                  RCC_AHB2ENR_GPIOCEN_Msk
+
 #define RCC_AHB2ENR_GPIODEN_Pos              (3U)
 #define RCC_AHB2ENR_GPIODEN_Msk              (0x1UL << RCC_AHB2ENR_GPIODEN_Pos) /*!< 0x00000008 */
 #define RCC_AHB2ENR_GPIODEN                  RCC_AHB2ENR_GPIODEN_Msk
