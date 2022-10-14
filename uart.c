@@ -1,4 +1,6 @@
 #include "stm32l475xx.h"
+#include "stm32l4xx.h"
+#include "uart.h"
 
 // Read USART Description p.1335
 
@@ -45,4 +47,12 @@ void uart_init(){
 
     // Activer l'USART1, le transmetteur et le récepteur
     USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE);
+}
+
+void uart_putchar(uint8_t c){
+    // je crois qu'on a besoin 
+    if(READ_BIT(USART1->ISR, USART_ISR_TEACK) && READ_BIT(USART1->ISR, USART_ISR_TXE)){
+        // normalement ça écrit bien seulement sur les 8 bits de poids faible
+        USART1->TDR = c;
+    }
 }

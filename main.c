@@ -1,5 +1,7 @@
 #include "led.h"
+#include "uart.h"
 #include "clocks.h"
+#include <stdint.h>
 
 int fibo(int n){
     
@@ -15,6 +17,9 @@ int fibo(int n){
 
 int main(){
     //return fibo(8);
+    uart_init();
+    uint8_t c = 1;
+    uart_putchar(c);
     clocks_init();
     led_init();
     for(int i = 0; i < 100000;i++){
