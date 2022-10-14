@@ -8102,7 +8102,7 @@ typedef struct
 /*                       General Purpose IOs (GPIO)                           */
 /*                                                                            */
 /******************************************************************************/
-/******************  Bits definition for GPIO_MODER register  *****************/
+/******************  Bits definition for GPIO_F register  *****************/
 #define GPIO_MODER_MODE0_Pos           (0U)
 #define GPIO_MODER_MODE0_Msk           (0x3UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000003 */
 #define GPIO_MODER_MODE0               GPIO_MODER_MODE0_Msk
@@ -8746,6 +8746,7 @@ typedef struct
 #define GPIO_BSRR_BS0_Pos              (0U)
 #define GPIO_BSRR_BS0_Msk              (0x1UL << GPIO_BSRR_BS0_Pos)            /*!< 0x00000001 */
 #define GPIO_BSRR_BS0                  GPIO_BSRR_BS0_Msk
+
 #define GPIO_BSRR_BS1_Pos              (1U)
 #define GPIO_BSRR_BS1_Msk              (0x1UL << GPIO_BSRR_BS1_Pos)            /*!< 0x00000002 */
 #define GPIO_BSRR_BS1                  GPIO_BSRR_BS1_Msk
@@ -8835,9 +8836,11 @@ typedef struct
 #define GPIO_BSRR_BR13_Pos             (29U)
 #define GPIO_BSRR_BR13_Msk             (0x1UL << GPIO_BSRR_BR13_Pos)           /*!< 0x20000000 */
 #define GPIO_BSRR_BR13                 GPIO_BSRR_BR13_Msk
+
 #define GPIO_BSRR_BR14_Pos             (30U)
 #define GPIO_BSRR_BR14_Msk             (0x1UL << GPIO_BSRR_BR14_Pos)           /*!< 0x40000000 */
 #define GPIO_BSRR_BR14                 GPIO_BSRR_BR14_Msk
+
 #define GPIO_BSRR_BR15_Pos             (31U)
 #define GPIO_BSRR_BR15_Msk             (0x1UL << GPIO_BSRR_BR15_Pos)           /*!< 0x80000000 */
 #define GPIO_BSRR_BR15                 GPIO_BSRR_BR15_Msk
@@ -8937,6 +8940,7 @@ typedef struct
 #define GPIO_AFRL_AFSEL0_1             (0x2UL << GPIO_AFRL_AFSEL0_Pos)         /*!< 0x00000002 */
 #define GPIO_AFRL_AFSEL0_2             (0x4UL << GPIO_AFRL_AFSEL0_Pos)         /*!< 0x00000004 */
 #define GPIO_AFRL_AFSEL0_3             (0x8UL << GPIO_AFRL_AFSEL0_Pos)         /*!< 0x00000008 */
+
 #define GPIO_AFRL_AFSEL1_Pos           (4U)
 #define GPIO_AFRL_AFSEL1_Msk           (0xFUL << GPIO_AFRL_AFSEL1_Pos)         /*!< 0x000000F0 */
 #define GPIO_AFRL_AFSEL1               GPIO_AFRL_AFSEL1_Msk
@@ -8972,6 +8976,7 @@ typedef struct
 #define GPIO_AFRL_AFSEL5_1             (0x2UL << GPIO_AFRL_AFSEL5_Pos)         /*!< 0x00200000 */
 #define GPIO_AFRL_AFSEL5_2             (0x4UL << GPIO_AFRL_AFSEL5_Pos)         /*!< 0x00400000 */
 #define GPIO_AFRL_AFSEL5_3             (0x8UL << GPIO_AFRL_AFSEL5_Pos)         /*!< 0x00800000 */
+
 #define GPIO_AFRL_AFSEL6_Pos           (24U)
 #define GPIO_AFRL_AFSEL6_Msk           (0xFUL << GPIO_AFRL_AFSEL6_Pos)         /*!< 0x0F000000 */
 #define GPIO_AFRL_AFSEL6               GPIO_AFRL_AFSEL6_Msk
@@ -8979,6 +8984,7 @@ typedef struct
 #define GPIO_AFRL_AFSEL6_1             (0x2UL << GPIO_AFRL_AFSEL6_Pos)         /*!< 0x02000000 */
 #define GPIO_AFRL_AFSEL6_2             (0x4UL << GPIO_AFRL_AFSEL6_Pos)         /*!< 0x04000000 */
 #define GPIO_AFRL_AFSEL6_3             (0x8UL << GPIO_AFRL_AFSEL6_Pos)         /*!< 0x08000000 */
+
 #define GPIO_AFRL_AFSEL7_Pos           (28U)
 #define GPIO_AFRL_AFSEL7_Msk           (0xFUL << GPIO_AFRL_AFSEL7_Pos)         /*!< 0xF0000000 */
 #define GPIO_AFRL_AFSEL7               GPIO_AFRL_AFSEL7_Msk
@@ -9069,15 +9075,19 @@ typedef struct
 #define GPIO_BRR_BR0_Pos               (0U)
 #define GPIO_BRR_BR0_Msk               (0x1UL << GPIO_BRR_BR0_Pos)             /*!< 0x00000001 */
 #define GPIO_BRR_BR0                   GPIO_BRR_BR0_Msk
+
 #define GPIO_BRR_BR1_Pos               (1U)
 #define GPIO_BRR_BR1_Msk               (0x1UL << GPIO_BRR_BR1_Pos)             /*!< 0x00000002 */
 #define GPIO_BRR_BR1                   GPIO_BRR_BR1_Msk
+
 #define GPIO_BRR_BR2_Pos               (2U)
 #define GPIO_BRR_BR2_Msk               (0x1UL << GPIO_BRR_BR2_Pos)             /*!< 0x00000004 */
 #define GPIO_BRR_BR2                   GPIO_BRR_BR2_Msk
+
 #define GPIO_BRR_BR3_Pos               (3U)
 #define GPIO_BRR_BR3_Msk               (0x1UL << GPIO_BRR_BR3_Pos)             /*!< 0x00000008 */
 #define GPIO_BRR_BR3                   GPIO_BRR_BR3_Msk
+
 #define GPIO_BRR_BR4_Pos               (4U)
 #define GPIO_BRR_BR4_Msk               (0x1UL << GPIO_BRR_BR4_Pos)             /*!< 0x00000010 */
 #define GPIO_BRR_BR4                   GPIO_BRR_BR4_Msk

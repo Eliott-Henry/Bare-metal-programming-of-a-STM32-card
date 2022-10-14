@@ -1,0 +1,35 @@
+#include "stm32l475xx.h"
+
+// Read USART Description p.1335
+
+void uart_init(){
+    // USART1_RX port B : MODE 7 de GPIOB à 10 (PB7)
+    GPIOB->MODER = (GPIOB->MODER | GPIO_MODER_MODE7_1) & ~GPIO_MODER_MODE7_0;
+    // USART1_TX port B : MODE 6 de GPIOB à 10 (PB6)
+    GPIOB->MODER = (GPIOB->MODER | GPIO_MODER_MODE6_1) & ~GPIO_MODER_MODE6_0;
+    // Clock GPIOB enable
+    RCC->AHB2ENR = RCC->AHB2ENR | RCC_AHB2ENR_GPIOBEN;
+
+    // Pour trouver AFRL correspondant, datasheet p.70 : 
+    // PB6 : USART1_TX = AF7
+    // PB7 : USART1-RX = AF7 
+    // On va mettre AF7 (donc 0111) dans AFSEL 6 et AFSEL7 de GPIOB_AFRL
+    GPIOB->AFRL = (GPIOB->AFLR | GPIO_AFRL_AFSEL6) & ~GPIO_AFRL_AFSEL6_3;
+    GPIOB->AFRL = (GPIOB->AFLR | GPIO_AFRL_AFSEL7) & ~GPIO_AFRL_AFSEL7_3;
+
+    // USART1 clock enable : RCC_APB2ENR au bit USART1EN
+    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+
+    // USART1 se base sur PCLK : registre CCIPR à modifier en mettant 00 dans les bits associés à USART1
+    RCC->CCIPR &= ~RCC_CCIPR_USART1SEL_Msk;
+
+    // Reset série USART1
+    RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST_Msk;
+
+    // Vitesse USART1 : il faut modifier BRR, et pour ça choisir USARTDIV (calcul p. 1349)
+    // fCK de l'USART (Dans RCC, nous on l'a mise à PCLK : 80MHz d'après le TP grâce au fichier clocks)
+    // On veut prendre 16 en oversampling dans la suite donc ça donne BRR = USARTDIV = 694.444(décimal) ~= 694(décimal) = 0x2C6 (cat OVER8=0, oversampling 16)
+    uint16_t brr = 0x2C6; 
+    USART1->BRR = brr;
+    // FINIR CA (mettre le nombre dans les bits [15:0] sans toucher aux [31:16])
+}

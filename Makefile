@@ -14,9 +14,6 @@ TARGET_ARCH += -mfloat-abi=hard -mfpu=fpv4-sp-d16# pour débuger l'édition de l
 EXE = prog
 OBJS = main.o crt0.o init.o memfuncs.o led.o
 
-vpath %.h 
-vpath %.h 
-
 all: $(EXE)
 
 $(EXE): $(OBJS)
@@ -27,6 +24,9 @@ connect:
 	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
 
 run: $(EXE)
+	$(GDB) -x ses203.gdb $<
+
+uart: hello
 	$(GDB) -x ses203.gdb $<
 
 objdump:
