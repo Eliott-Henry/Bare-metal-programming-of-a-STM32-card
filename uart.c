@@ -14,14 +14,12 @@ void uart_init(){
     // PB6 : USART1_TX = AF7
     // PB7 : USART1-RX = AF7 
     // On va mettre AF7 (donc 0111) dans AFSEL 6 et AFSEL7 de GPIOB_AFRL
-    GPIOB->AFRL = (GPIOB->AFLR | GPIO_AFRL_AFSEL6) & ~GPIO_AFRL_AFSEL6_3;
-    GPIOB->AFRL = (GPIOB->AFLR | GPIO_AFRL_AFSEL7) & ~GPIO_AFRL_AFSEL7_3;
+    // /!\ Est-ce que AFRL correspond bien à la première case du tableau AFR?
+    GPIOB->AFR[0] = (GPIOB->AFR[0] | GPIO_AFRL_AFSEL6) & ~GPIO_AFRL_AFSEL6_3;
+    GPIOB->AFR[0] = (GPIOB->AFR[0] | GPIO_AFRL_AFSEL7) & ~GPIO_AFRL_AFSEL7_3;
 
     // USART1 clock enable : RCC_APB2ENR au bit USART1EN
-    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-
-    // USART1 se base sur PCLK : registre CCIPR à modifier en mettant 00 dans les bits associés à USART1
-    RCC->CCIPR &= ~RCC_CCIPR_USART1SEL_Msk;
+    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;// Oversampling : on le choisit dans USART_CR1 (on veut lemettre à 16 ici)sk;
 
     // Reset série USART1
     RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST_Msk;
@@ -31,5 +29,20 @@ void uart_init(){
     // On veut prendre 16 en oversampling dans la suite donc ça donne BRR = USARTDIV = 694.444(décimal) ~= 694(décimal) = 0x2C6 (cat OVER8=0, oversampling 16)
     uint16_t brr = 0x2C6; 
     USART1->BRR = brr;
-    // FINIR CA (mettre le nombre dans les bits [15:0] sans toucher aux [31:16])
+    // /!\ Est-ce que ça met bien le nombre dans les bits [15:0] sans toucher aux [31:16] ?
+
+    // mettre en mode oversampling 16
+    USART1->CR1 &= ~USART_CR1_OVER8_Msk; 
+
+    // Mettre la taille des mots à 8 bits : il faut mettre M[1:0] à 00 
+    USART1->CR1 &= (~USART_CR1_M0_Msk & ~USART_CR1_M1_Msk);
+
+    // Mettre le bit de parité PCE à 0
+    USART1->CR1 &= ~USART_CR1_PCE_Msk;
+
+    // Mettre le bit de stop à 1 : dans USART_CR2 il faut mettre STOP[1,0] à 00
+    USART1->CR2 &= ~USART_CR2_STOP_Msk;
+
+    // Activer l'USART1, le transmetteur et le récepteur
+    USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE);
 }

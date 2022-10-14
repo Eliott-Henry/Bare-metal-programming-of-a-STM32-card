@@ -12,7 +12,7 @@ TARGET_ARCH = -mcpu=cortex-m4 -mthumb # We can add -mfloat-abi=hard -mpfu=fpv4-s
 TARGET_ARCH += -mfloat-abi=hard -mfpu=fpv4-sp-d16# pour débuger l'édition de lien avec clocks.o
 
 EXE = prog
-OBJS = main.o crt0.o init.o memfuncs.o led.o
+OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o
 
 all: $(EXE)
 

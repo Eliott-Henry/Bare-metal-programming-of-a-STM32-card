@@ -15729,15 +15729,19 @@ typedef struct
 #define USART_CR1_UE_Pos              (0U)
 #define USART_CR1_UE_Msk              (0x1UL << USART_CR1_UE_Pos)              /*!< 0x00000001 */
 #define USART_CR1_UE                  USART_CR1_UE_Msk                         /*!< USART Enable */
+
 #define USART_CR1_UESM_Pos            (1U)
 #define USART_CR1_UESM_Msk            (0x1UL << USART_CR1_UESM_Pos)            /*!< 0x00000002 */
 #define USART_CR1_UESM                USART_CR1_UESM_Msk                       /*!< USART Enable in STOP Mode */
+
 #define USART_CR1_RE_Pos              (2U)
 #define USART_CR1_RE_Msk              (0x1UL << USART_CR1_RE_Pos)              /*!< 0x00000004 */
 #define USART_CR1_RE                  USART_CR1_RE_Msk                         /*!< Receiver Enable */
+
 #define USART_CR1_TE_Pos              (3U)
 #define USART_CR1_TE_Msk              (0x1UL << USART_CR1_TE_Pos)              /*!< 0x00000008 */
 #define USART_CR1_TE                  USART_CR1_TE_Msk                         /*!< Transmitter Enable */
+
 #define USART_CR1_IDLEIE_Pos          (4U)
 #define USART_CR1_IDLEIE_Msk          (0x1UL << USART_CR1_IDLEIE_Pos)          /*!< 0x00000010 */
 #define USART_CR1_IDLEIE              USART_CR1_IDLEIE_Msk                     /*!< IDLE Interrupt Enable */
@@ -15756,27 +15760,34 @@ typedef struct
 #define USART_CR1_PS_Pos              (9U)
 #define USART_CR1_PS_Msk              (0x1UL << USART_CR1_PS_Pos)              /*!< 0x00000200 */
 #define USART_CR1_PS                  USART_CR1_PS_Msk                         /*!< Parity Selection */
+
 #define USART_CR1_PCE_Pos             (10U)
 #define USART_CR1_PCE_Msk             (0x1UL << USART_CR1_PCE_Pos)             /*!< 0x00000400 */
 #define USART_CR1_PCE                 USART_CR1_PCE_Msk                        /*!< Parity Control Enable */
+
 #define USART_CR1_WAKE_Pos            (11U)
 #define USART_CR1_WAKE_Msk            (0x1UL << USART_CR1_WAKE_Pos)            /*!< 0x00000800 */
 #define USART_CR1_WAKE                USART_CR1_WAKE_Msk                       /*!< Receiver Wakeup method */
+
 #define USART_CR1_M_Pos               (12U)
 #define USART_CR1_M_Msk               (0x10001UL << USART_CR1_M_Pos)           /*!< 0x10001000 */
 #define USART_CR1_M                   USART_CR1_M_Msk                          /*!< Word length */
+
 #define USART_CR1_M0_Pos              (12U)
 #define USART_CR1_M0_Msk              (0x1UL << USART_CR1_M0_Pos)              /*!< 0x00001000 */
 #define USART_CR1_M0                  USART_CR1_M0_Msk                         /*!< Word length - Bit 0 */
+
 #define USART_CR1_MME_Pos             (13U)
 #define USART_CR1_MME_Msk             (0x1UL << USART_CR1_MME_Pos)             /*!< 0x00002000 */
 #define USART_CR1_MME                 USART_CR1_MME_Msk                        /*!< Mute Mode Enable */
 #define USART_CR1_CMIE_Pos            (14U)
 #define USART_CR1_CMIE_Msk            (0x1UL << USART_CR1_CMIE_Pos)            /*!< 0x00004000 */
 #define USART_CR1_CMIE                USART_CR1_CMIE_Msk                       /*!< Character match interrupt enable */
+
 #define USART_CR1_OVER8_Pos           (15U)
 #define USART_CR1_OVER8_Msk           (0x1UL << USART_CR1_OVER8_Pos)           /*!< 0x00008000 */
 #define USART_CR1_OVER8               USART_CR1_OVER8_Msk                      /*!< Oversampling by 8-bit or 16-bit mode */
+
 #define USART_CR1_DEDT_Pos            (16U)
 #define USART_CR1_DEDT_Msk            (0x1FUL << USART_CR1_DEDT_Pos)           /*!< 0x001F0000 */
 #define USART_CR1_DEDT                USART_CR1_DEDT_Msk                       /*!< DEDT[4:0] bits (Driver Enable Deassertion Time) */
@@ -15799,6 +15810,7 @@ typedef struct
 #define USART_CR1_EOBIE_Pos           (27U)
 #define USART_CR1_EOBIE_Msk           (0x1UL << USART_CR1_EOBIE_Pos)           /*!< 0x08000000 */
 #define USART_CR1_EOBIE               USART_CR1_EOBIE_Msk                      /*!< End of Block interrupt enable */
+
 #define USART_CR1_M1_Pos              (28U)
 #define USART_CR1_M1_Msk              (0x1UL << USART_CR1_M1_Pos)              /*!< 0x10000000 */
 #define USART_CR1_M1                  USART_CR1_M1_Msk                         /*!< Word length - Bit 1 */
@@ -15825,9 +15837,11 @@ typedef struct
 #define USART_CR2_CLKEN_Pos           (11U)
 #define USART_CR2_CLKEN_Msk           (0x1UL << USART_CR2_CLKEN_Pos)           /*!< 0x00000800 */
 #define USART_CR2_CLKEN               USART_CR2_CLKEN_Msk                      /*!< Clock Enable */
+
 #define USART_CR2_STOP_Pos            (12U)
 #define USART_CR2_STOP_Msk            (0x3UL << USART_CR2_STOP_Pos)            /*!< 0x00003000 */
 #define USART_CR2_STOP                USART_CR2_STOP_Msk                       /*!< STOP[1:0] bits (STOP bits) */
+
 #define USART_CR2_STOP_0              (0x1UL << USART_CR2_STOP_Pos)            /*!< 0x00001000 */
 #define USART_CR2_STOP_1              (0x2UL << USART_CR2_STOP_Pos)            /*!< 0x00002000 */
 #define USART_CR2_LINEN_Pos           (14U)
