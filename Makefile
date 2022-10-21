@@ -6,10 +6,14 @@ AS = $(PREFIX)as
 
 CFLAGS = -ffreestanding -Wall -Wextra -Werror  -g -O1 # -c 
 LDFLAGS = -nostdlib -T ld_ram.lds
-CPPFLAGS = -ICMSIS/Include -ICMSIS/Device/ST/STM32L4xx/Include 
+CPPFLAGS = -ICMSIS/Include -ICMSIS/Device/ST/STM32L4xx/Include -DSTM32L475xx
 
 TARGET_ARCH = -mcpu=cortex-m4 -mthumb # We can add -mfloat-abi=hard -mpfu=fpv4-sp-d16 (pour compile.c)
 TARGET_ARCH += -mfloat-abi=hard -mfpu=fpv4-sp-d16# pour débuger l'édition de lien avec clocks.o
+
+ASFLAGS = -g
+TARGET_MACH = $(TARGET_ARCH)
+
 
 EXE = prog
 OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o
@@ -17,7 +21,7 @@ OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o
 all: $(EXE)
 
 $(EXE): $(OBJS)
-	$(CC) $(LDFLAGS)  $^ clocks.o -o $@
+	$(CC) -g $(LDFLAGS)  $^ clocks.o -o $@
 
 # Pour se connecter
 connect:

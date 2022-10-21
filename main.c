@@ -2,6 +2,7 @@
 #include "uart.h"
 #include "clocks.h"
 #include <stdint.h>
+#include <stddef.h>
 
 int fibo(int n){
     
@@ -16,11 +17,22 @@ int fibo(int n){
 }
 
 int main(){
-    //return fibo(8);
-    uart_init();
-    uint8_t c = 1;
-    uart_putchar(c);
     clocks_init();
+    //return fibo(8); (Test Fibo)
+    uart_init();
+    /*
+    Tests putc et puts :
+    uart_putchar('H');
+    uart_putchar('e');
+    uart_puts("Hello World!");*/
+    char *s = "abcdefghij";
+    size_t size = 10;
+    while(1){
+        uart_gets(s, size);
+        uart_puts(s);
+    }
+    
+
     led_init();
     for(int i = 0; i < 100000;i++){
         led(LED_OFF);
