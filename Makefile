@@ -36,6 +36,9 @@ uart: hello
 objdump:
 	arm-none-eabi-objdump -h $(EXE)
 
+tio:
+	tio /dev/ttyACM0
+
 clean:
 	rm -f $(OBJS)
 	rm -f $(EXE)

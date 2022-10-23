@@ -20,13 +20,16 @@ int main(){
     clocks_init();
     //return fibo(8); (Test Fibo)
     uart_init();
-    /*
-    Tests putc et puts :
     uart_putchar('H');
     uart_putchar('e');
-    uart_puts("Hello World!");*/
+    uart_puts("Hello World!");
+
+    /*
+    Tests puts : on écrit une chaîne de 10 caractères et l'uart nous la renvoie
+    */
     char *s = "abcdefghij";
     size_t size = 10;
+    
     while(1){
         uart_gets(s, size);
         uart_puts(s);
