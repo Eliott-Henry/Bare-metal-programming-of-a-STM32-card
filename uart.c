@@ -80,3 +80,11 @@ void uart_gets(char *s, size_t size){
         s++;
     }
 }
+
+uint32_t uart_checksum(int nb_bits){
+    uint32_t s = 0;
+    for(int i = 0; i < nb_bits; i++){
+        s += uart_getchar();
+    }
+    return s;
+}
