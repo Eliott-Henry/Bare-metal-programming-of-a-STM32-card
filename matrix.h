@@ -1,0 +1,15 @@
+void matrix_init();
+void RST(char c);
+void SB(char c);
+void LAT(char c);
+void SCK(char c);
+void SDA(char c);
+void ROW0(char c);
+void ROW1(char c);
+void ROW2(char c);
+void ROW3(char c);
+void ROW4(char c);
+void ROW5(char c);
+void ROW6(char c);
+void ROW7(char c);
+void pulse_SCK();

@@ -1,6 +1,7 @@
 #include "led.h"
 #include "uart.h"
 #include "clocks.h"
+#include "matrix.h"
 #include <stdint.h>
 #include <stddef.h>
 
@@ -20,26 +21,9 @@ int fibo(int n){
 
 int main(){
     clocks_init();
-    
     uart_init();
-    
-    //uart_putchar('H');
-    //uart_putchar('e');
-    //uart_puts("Hello World!");
+    matrix_init();
 
-    /*
-    Tests puts : on écrit une chaîne de 10 caractères et l'uart nous la renvoie
-    
-    char *s = "abcdefghij";
-    size_t size = 10;
-    
-    while(1){
-        uart_gets(s, size);
-        uart_puts(s);
-    }*/
-
-    //sum = uart_checksum(1000); // on vérifie que le checksum est bon dans gdb avec un breakpoint et print sum
-    
     led_init();
     for(int i = 0; i < 100000;i++){
         led(LED_OFF);
