@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+uint32_t sum;
+
 int fibo(int n){
     
     if(n==0){
@@ -18,8 +20,9 @@ int fibo(int n){
 
 int main(){
     clocks_init();
-    //return fibo(8); (Test Fibo)
-    //uart_init();
+    
+    uart_init();
+    
     //uart_putchar('H');
     //uart_putchar('e');
     //uart_puts("Hello World!");
@@ -35,9 +38,8 @@ int main(){
         uart_puts(s);
     }*/
 
-    uint32_t sum = uart_checksum(1000);
-    sum = sum + 1;
-
+    //sum = uart_checksum(1000); // on vérifie que le checksum est bon dans gdb avec un breakpoint et print sum
+    
     led_init();
     for(int i = 0; i < 100000;i++){
         led(LED_OFF);

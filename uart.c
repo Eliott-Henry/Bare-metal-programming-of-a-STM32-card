@@ -5,16 +5,15 @@
 // Read USART Description p.1335
 
 void uart_init(){
+
     // Clock GPIOB enable
-
-    // A FAIRE : MASQUE POUR METTRE A 00 PUIS DECALAGE
-
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
     
-    RCC->AHB2ENR = RCC->AHB2ENR | RCC_AHB2ENR_GPIOBEN;
     // USART1_RX port B : MODE 7 de GPIOB à 10 (PB7)
-    GPIOB->MODER = (GPIOB->MODER | GPIO_MODER_MODE7_1) & ~GPIO_MODER_MODE7_0;
+    GPIOB->MODER = (GPIOB->MODER & ~GPIO_MODER_MODE7) | (0b10 << GPIO_MODER_MODE7_Pos);
+    
     // USART1_TX port B : MODE 6 de GPIOB à 10 (PB6)
-    GPIOB->MODER = (GPIOB->MODER | GPIO_MODER_MODE6_1) & ~GPIO_MODER_MODE6_0;
+    GPIOB->MODER = (GPIOB->MODER & ~GPIO_MODER_MODE6) | (0b10 << GPIO_MODER_MODE6_Pos);
 
     // Pour trouver AFRL correspondant, datasheet p.70 : 
     // PB6 : USART1_TX = AF7
@@ -34,22 +33,14 @@ void uart_init(){
     // ICI REVOIR LES BITS QUI N'ONT PAS BESOIN D'ETRE MODIFIES (grâce au reset)
 
     // Vitesse USART1 : il faut modifier BRR, et pour ça choisir USARTDIV (calcul p. 1349)
-    // fCK de l'USART (Dans RCC, nous on l'a mise à PCLK : 80MHz d'après le TP grâce au fichier clocks)
-    // On veut prendre 16 en oversampling dans la suite donc ça donne BRR = USARTDIV = 694.444(décimal) ~= 694(décimal) = 0x2C6 (cat OVER8=0, oversampling 16)
+    // fCK de l'USART (Dans RCC, nous on l'a mise à PCLK : 80MHz d'après le TP grâce à clocks_init)
+    // On veut prendre 16 en oversampling dans la suite donc ça donne BRR = USARTDIV = 80000000/115200 (car OVER8=0, oversampling 16)
     USART1->BRR = 80000000/115200;
-    // /!\ Est-ce que ça met bien le nombre dans les bits [15:0] sans toucher aux [31:16] ?
 
-    // mettre en mode oversampling 16
-    USART1->CR1 &= ~USART_CR1_OVER8_Msk; 
-
-    // Mettre la taille des mots à 8 bits : il faut mettre M[1:0] à 00 
-    USART1->CR1 &= (~USART_CR1_M0_Msk & ~USART_CR1_M1_Msk);
-
-    // Mettre le bit de parité PCE à 0
-    USART1->CR1 &= ~USART_CR1_PCE_Msk;
-
-    // Mettre le bit de stop à 1 : dans USART_CR2 il faut mettre STOP[1,0] à 00
-    USART1->CR2 &= ~USART_CR2_STOP_Msk;
+    // Mettre en mode oversampling 16 : mettre OVER8 à 0 (déjà faut au reset)
+    // Mettre la taille des mots à 8 bits : il faut mettre M[1:0] à 00 (déjà fait au reset)
+    // Mettre le bit de parité PCE à 0 (déjà fait au reset)
+    // Mettre le bit de stop à 1 : dans USART_CR2 il faut mettre STOP[1,0] à 00 (déjà fait au reset)
 
     // Activer l'USART1, le transmetteur et le récepteur
     USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE);
