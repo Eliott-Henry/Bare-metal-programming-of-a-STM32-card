@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "stm32l475xx.h"
+#include <stdint.h>
 
 void matrix_init(){
     // allumage des clocks de GPIO A B et C
@@ -186,4 +187,81 @@ void ROW7(char c){
     else{
         GPIOA->ODR &= ~GPIO_ODR_OD3;
     }
+}
+
+void pulse_SCK(){
+
+    SCK(0); 
+    asm volatile("nop");
+    asm volatile("nop");
+    SCK(1);
+    asm volatile("nop");
+    asm volatile("nop");
+    SCK(0);
+    asm volatile("nop");
+    asm volatile("nop");
+}
+
+void pulse_LAT(){
+    LAT(1);
+    asm volatile("nop");
+    asm volatile("nop");
+    LAT(0);
+    asm volatile("nop");
+    LAT(1);
+    asm volatile("nop");
+    asm volatile("nop");
+}
+
+void deactivate_rows(){
+    ROW0(0);
+    ROW1(0);
+    ROW2(0);
+    ROW3(0);
+    ROW4(0);
+    ROW5(0);
+    ROW6(0);
+    ROW7(0);
+}
+
+void activate_row(int row){
+    switch(row){
+        case(0): 
+            ROW0(1);
+            break;        
+        case(1): 
+            ROW1(1);
+            break;
+        case 2: 
+            ROW2(1);
+            break;
+        case 3: 
+            ROW3(1);
+            break;
+        case 4: 
+            ROW4(1);
+            break;
+        case 5: 
+            ROW5(1);
+            break;
+        case 6: 
+            ROW6(1);
+            break;
+        case 7: 
+            ROW7(1);
+            break;
+    }
+}
+
+void send_byte(uint8_t val, int bank){
+    
+    SB(bank);
+    char c;
+    for(int i = 7; i >= 0; i--){
+        c = val & (1 << i);
+        SDA(c);
+        pulse_SCK();
+    }
+    pulse_LAT();
+
 }

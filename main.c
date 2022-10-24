@@ -5,8 +5,6 @@
 #include <stdint.h>
 #include <stddef.h>
 
-uint32_t sum;
-
 int fibo(int n){
     
     if(n==0){
