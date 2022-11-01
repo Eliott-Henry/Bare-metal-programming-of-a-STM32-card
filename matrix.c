@@ -49,20 +49,13 @@ void matrix_init(){
     SCK et SDA : 0 (PB1 PA4)
     C0 à C7 : 0 (éteint toutes les lignes) (PB2 PA15 PA2 PA7 PA6 PA5 PB0 PA3)
     */
-
+    
     RST(0);
     LAT(1);
     SB(1);
     SCK(0);
     SDA(0);
-    ROW0(0);
-    ROW1(0);
-    ROW2(0);
-    ROW3(0);
-    ROW4(0);
-    ROW5(0);
-    ROW6(0);
-    ROW7(0);
+    deactivate_rows();
     
     // Pour attendre 100ms, on fait au moins 8000 asm volatile(nop), car ils prennent un cycle, et l'horloge est de 80MHz
     for (int i = 0; i < 8000; i++){
@@ -70,11 +63,12 @@ void matrix_init(){
     }
 
     RST(1);
+    init_bank0();
 }
 
 void RST(char c){
     if(c){
-        GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD3) | (1 << GPIO_ODR_OD3_Pos);
+        GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD3) | (0b01 << GPIO_ODR_OD3_Pos);
     }
     else{
         GPIOC->ODR &= ~GPIO_ODR_OD3;
@@ -83,19 +77,19 @@ void RST(char c){
 
 void SB(char c){
     if(c){
-       GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD4) | (1 << GPIO_ODR_OD4_Pos);
+       GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD5) | (1 << GPIO_ODR_OD5_Pos);
     }
     else{
-        GPIOC->ODR &= ~GPIO_ODR_OD4;
+        GPIOC->ODR &= ~GPIO_ODR_OD5;
     }
 }
 
 void LAT(char c){
     if(c){
-        GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD5) | (1 << GPIO_ODR_OD5_Pos);
+        GPIOC->ODR = (GPIOC->ODR & ~GPIO_ODR_OD4) | (1 << GPIO_ODR_OD4_Pos);
     }
     else{
-        GPIOC->ODR &= ~GPIO_ODR_OD5;
+        GPIOC->ODR &= ~GPIO_ODR_OD4;
     }
 }
 
@@ -110,10 +104,10 @@ void SCK(char c){
 
 void SDA(char c){
     if(c){
-        GPIOA->ODR = (GPIOA->ODR & ~GPIO_ODR_OD4) | (1<< GPIO_ODR_OD4);
+        GPIOA->ODR = (GPIOA->ODR & ~GPIO_ODR_OD4) | (1<< GPIO_ODR_OD4_Pos);
     }
     else{
-        GPIOB->ODR &= ~GPIO_ODR_OD4;
+        GPIOA->ODR &= ~GPIO_ODR_OD4;
     }
 }
 
@@ -190,7 +184,6 @@ void ROW7(char c){
 }
 
 void pulse_SCK(){
-
     SCK(0); 
     asm volatile("nop");
     asm volatile("nop");
@@ -254,7 +247,6 @@ void activate_row(int row){
 }
 
 void send_byte(uint8_t val, int bank){
-    
     SB(bank);
     char c;
     for(int i = 7; i >= 0; i--){
@@ -263,5 +255,75 @@ void send_byte(uint8_t val, int bank){
         pulse_SCK();
     }
     pulse_LAT();
+}
 
+void mat_set_row(int row, const rgb_color *val){
+    for(int i = 7; i >= 0; i--){
+        send_byte(val[i].b, 1);
+        send_byte(val[i].g, 1);
+        send_byte(val[i].r, 1);
+    }
+    activate_row(row);
+    pulse_LAT();
+}
+
+void init_bank0(){
+    send_byte(0b11111111, 0);
+    pulse_LAT();
+}
+
+void test_pixels(){
+    rgb_color val0 = {0,0,0};
+    rgb_color val1 = {0,0,0};
+    rgb_color val2 = {0,0,0};
+    rgb_color val3 = {0,0,0};
+    rgb_color val4 = {0,0,0};
+    rgb_color val5 = {0,0,0};
+    rgb_color val6 = {0,0,0};
+    rgb_color val7 = {0,0,0};
+    rgb_color val[] = {val0, val1, val2, val3, val4, val5, val6, val7};
+    
+    for(int i = 0; i < 8; i++){
+        deactivate_rows();
+        // i c'est la ligne qui va être allumée
+        for(int j = 0; j < 8; j++){
+            // j c'est la colonne du pixel
+            val[j].r = 255;
+            val[j].b = j*30;
+            val[j].g = j*30;
+        }
+        mat_set_row(i, val);
+
+        for(int k = 0; k < 10000000; k++){
+            asm volatile("nop");
+        }
+
+        for(int j = 0; j < 8; j++){
+            // j c'est la colonne du pixel
+            val[j].r = j*30;
+            val[j].b = 255;
+            val[j].g = j*30;
+        }
+        mat_set_row(i, val);
+
+        for(int k = 0; k < 10000000; k++){
+            asm volatile("nop");
+        }
+
+        for(int j = 0; j < 8; j++){
+            // j c'est la colonne du pixel
+            val[j].r = j*30;
+            val[j].b = j*30;
+            val[j].g = 255;
+        }
+        mat_set_row(i, val);
+
+        for(int k = 0; k < 10000000; k++){
+            asm volatile("nop");
+        }
+
+        for(int k = 0; k < 1000000; k++){
+            asm volatile("nop");
+        }
+    }
 }

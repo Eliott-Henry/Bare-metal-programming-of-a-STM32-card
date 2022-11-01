@@ -19,26 +19,9 @@ int fibo(int n){
 
 int main(){
     clocks_init();
-    uart_init();
+    //uart_init();
     matrix_init();
-
-    led_init();
-    for(int i = 0; i < 100000;i++){
-        led(LED_OFF);
-        led_g_on();
-        for(int k = 0; k < 1000000; k++){
-            asm volatile("nop");
-        }
-        led_g_off();
-        led(LED_YELLOW);
-        for(int k = 0; k < 1000000; k++){
-            asm volatile("nop");
-        }
-        led(LED_BLUE);
-        for(int k = 0; k < 1000000; k++){
-            asm volatile("nop");
-        }
-    }
-
+    test_pixels();
+    //led_init();
     return 0;
 }
