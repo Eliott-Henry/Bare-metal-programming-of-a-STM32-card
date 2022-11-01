@@ -273,21 +273,13 @@ void init_bank0(){
 }
 
 void test_pixels(){
-    rgb_color val0 = {0,0,0};
-    rgb_color val1 = {0,0,0};
-    rgb_color val2 = {0,0,0};
-    rgb_color val3 = {0,0,0};
-    rgb_color val4 = {0,0,0};
-    rgb_color val5 = {0,0,0};
-    rgb_color val6 = {0,0,0};
-    rgb_color val7 = {0,0,0};
-    rgb_color val[] = {val0, val1, val2, val3, val4, val5, val6, val7};
+    
+    rgb_color val[8] = {{0,0,0}};
     
     for(int i = 0; i < 8; i++){
         deactivate_rows();
-        // i c'est la ligne qui va être allumée
+       
         for(int j = 0; j < 8; j++){
-            // j c'est la colonne du pixel
             val[j].r = 255;
             val[j].b = j*30;
             val[j].g = j*30;
@@ -299,7 +291,6 @@ void test_pixels(){
         }
 
         for(int j = 0; j < 8; j++){
-            // j c'est la colonne du pixel
             val[j].r = j*30;
             val[j].b = 255;
             val[j].g = j*30;
@@ -311,7 +302,6 @@ void test_pixels(){
         }
 
         for(int j = 0; j < 8; j++){
-            // j c'est la colonne du pixel
             val[j].r = j*30;
             val[j].b = j*30;
             val[j].g = 255;
