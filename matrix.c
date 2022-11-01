@@ -2,6 +2,28 @@
 #include "stm32l475xx.h"
 #include <stdint.h>
 
+// on récupère l'objet comme un tableau de rgb_color
+extern rgb_color image[];
+
+void test_static(){
+    int i = 0;
+    while(1)
+    {
+        if(i == 8){
+            i = 0;
+        } 
+
+        deactivate_rows();
+        // on indique directement la ligne correspondante
+        mat_set_row(i, &image[8*i]);
+
+        for(int k = 0; k < 1000; k++){
+            asm volatile("nop");
+        }
+        i++;
+    }
+}
+
 void matrix_init(){
     // allumage des clocks de GPIO A B et C
     RCC->AHB2ENR = RCC->AHB2ENR | RCC_AHB2ENR_GPIOBEN | RCC_AHB2ENR_GPIOCEN | RCC_AHB2ENR_GPIOAEN;

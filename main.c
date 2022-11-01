@@ -21,7 +21,8 @@ int main(){
     clocks_init();
     //uart_init();
     matrix_init();
-    test_pixels();
+    //test_pixels();
+    test_static();
     //led_init();
     return 0;
 }

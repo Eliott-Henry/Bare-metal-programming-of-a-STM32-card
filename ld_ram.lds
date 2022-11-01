@@ -4,6 +4,11 @@ MEMORY{
     sram2 (wx) : ORIGIN = 0x10000000, LENGTH = 32K
 }
 
+/* On utilise ces commandes pour linker image.raw en format binaire, que l'on met dans rodata après */
+TARGET(binary) 
+INPUT(./image.raw)
+OUTPUT_FORMAT(default)
+
 ENTRY(_start)
 
 SECTIONS
@@ -13,6 +18,8 @@ SECTIONS
     } > sram1
  
     .rodata :{
+        image = .;
+        ./image.raw
         *(.rodata)
     } > sram1
     
