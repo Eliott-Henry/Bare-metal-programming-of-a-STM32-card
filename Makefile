@@ -16,7 +16,7 @@ TARGET_MACH = $(TARGET_ARCH)
 
 
 EXE = prog
-OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o matrix.o
+OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o matrix.o irq.o buttons.o
 
 all: $(EXE)
 

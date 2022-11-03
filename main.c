@@ -4,6 +4,8 @@
 #include "matrix.h"
 #include <stdint.h>
 #include <stddef.h>
+#include "irq.h"
+#include "buttons.h"
 
 int fibo(int n){
     
@@ -19,10 +21,12 @@ int fibo(int n){
 
 int main(){
     clocks_init();
+    led_init();
+    irq_init();
+    button_init();
     //uart_init();
     matrix_init();
     //test_pixels();
     test_static();
-    //led_init();
     return 0;
 }
