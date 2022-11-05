@@ -4,7 +4,7 @@
 #include <stddef.h>
 // Read USART Description p.1335
 
-void uart_init(){
+void uart_init(int baudrate){
 
     // Clock GPIOB enable
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
@@ -35,7 +35,7 @@ void uart_init(){
     // Vitesse USART1 : il faut modifier BRR, et pour ça choisir USARTDIV (calcul p. 1349)
     // fCK de l'USART (Dans RCC, nous on l'a mise à PCLK : 80MHz d'après le TP grâce à clocks_init)
     // On veut prendre 16 en oversampling dans la suite donc ça donne BRR = USARTDIV = 80000000/115200 (car OVER8=0, oversampling 16)
-    USART1->BRR = 80000000/115200;
+    USART1->BRR = 80000000/baudrate;
 
     // Mettre en mode oversampling 16 : mettre OVER8 à 0 (déjà faut au reset)
     // Mettre la taille des mots à 8 bits : il faut mettre M[1:0] à 00 (déjà fait au reset)
