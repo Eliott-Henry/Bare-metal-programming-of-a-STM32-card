@@ -9,13 +9,27 @@
 extern rgb_color image_trame[64];
 
 void USART1_IRQHandler(){
+    static uint8_t current_octet = 0;
+
+    uint8_t octet = uart_getchar();
+    uint8_t color = current_octet % 3;
+    uint8_t pixel = current_octet / 3;
+    
+    if(color == 0){
+        image_trame[pixel].r = octet;
+    } 
+    else if(color == 1){
+        image_trame[pixel].g = octet;
+    }
+    else{
+        image_trame[pixel].b = octet;
+    }
+    
     // Compléter : valider la réception de l'IRQ
-    // Lire la trame avec les fonctions dans uart.c
-    // Modifier les cases du tableau image_trame
-    // Faire un compteur en static qui compte à quelle trame on est ?
-    // On le fait monter tant qu'il est pas à 64 et ensuite on le remet à 0
-    // Il faut voir si on a une interruption pour chaque octer reçu ou plus
-    // Il faut voir si la réception c'est un front montant ou descendant
+    if(current_octet == 191){
+        current_octet = 0;
+    }
+    current_octet++;
 }
 
 void uart_init(int baudrate){
@@ -60,6 +74,7 @@ void uart_init(int baudrate){
     USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE);
 
     // ICI IL FAUT ACTIVER LES IRQ !!!!!! (comme dans buttons_init)
+    // Il faut voir si la réception c'est un front montant ou descendant
 
 }
 

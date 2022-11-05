@@ -24,7 +24,7 @@ int main(){
     led_init();
     irq_init();
     button_init();
-    //uart_init();
+    uart_init(38400);
     matrix_init();
     //test_pixels();
     test_static();
