@@ -3,7 +3,8 @@
 #include <stdint.h>
 
 // on récupère l'objet comme un tableau de rgb_color
-extern rgb_color image[];
+extern rgb_color image[64];
+rgb_color image_trame[64];
 
 void test_static(){
     int i = 0;
@@ -16,6 +17,9 @@ void test_static(){
         deactivate_rows();
         // on indique directement la ligne correspondante
         mat_set_row(i, &image[8*i]);
+
+        // Pour afficher l'image de la trame:
+        // mat_set_row(i, &trame[8*i]);
 
         for(int k = 0; k < 1000; k++){
             asm volatile("nop");

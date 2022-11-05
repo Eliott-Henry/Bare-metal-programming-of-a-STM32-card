@@ -5,7 +5,6 @@
 
 #define MAKE_DEFAULT_HANDLER(truc_IRQHandler) void __attribute__((weak)) truc_IRQHandler(void) {__disable_irq(); while(1){}} 
 
-
 extern uint32_t _stack_start;
 void _start(void);
 
@@ -98,8 +97,7 @@ MAKE_DEFAULT_HANDLER(TSC_IRQHandler);
 MAKE_DEFAULT_HANDLER(LCD_IRQHandler);
 MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
-MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
-
+MAKE_DEFAULT_HANDLER(FPU_IRQHandler)
 void *vector_table[] __attribute__((aligned(512)))= {
     // Stack and Reset Handler
     &_stack_start,            /* Top of stack */
