@@ -11,14 +11,25 @@ extern rgb_color image_trame[64];
 void USART1_IRQHandler(){
 
     static uint8_t current_octet = 0;
-    
+    static char error_flag = 0;
     uint8_t octet = uart_getchar();
-    uart_putchar(octet);
 
-    if(octet == 0xFF){
-        current_octet = -1;
+    if(USART1->ISR & USART_ISR_ORE){
+        USART1->ICR |= USART_ICR_ORECF;
+        error_flag = 1;
+    }
+    else if(USART1->ISR & USART_ISR_FE){
+       USART1->ICR |= USART_ICR_FECF;
+       error_flag = 1;
     }
     else{
+        if(octet == 0xFF){
+            current_octet = -1;
+            error_flag = 0;
+        }
+    }
+
+    if (error_flag==0){
         uint8_t color = current_octet % 3;
         uint8_t pixel = current_octet / 3;
     
@@ -26,18 +37,18 @@ void USART1_IRQHandler(){
             image_trame[pixel].r = octet;
         } 
         else if(color == 1){
-           image_trame[pixel].g = octet;
+            image_trame[pixel].g = octet;
         }
         else{
-           image_trame[pixel].b = octet;
+            image_trame[pixel].b = octet;
         }
     }
     
-    // Compléter : valider la réception de l'IRQ
     if(current_octet == 191){
         current_octet = -1;
     }
     current_octet++;
+    
 }
 
 void uart_init(int baudrate){
@@ -79,7 +90,7 @@ void uart_init(int baudrate){
     // Mettre le bit de stop à 1 : dans USART_CR2 il faut mettre STOP[1,0] à 00 (déjà fait au reset)
 
     // Activer l'USART1, le transmetteur et le récepteur
-    USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE | USART_CR1_RXNEIE);
+    USART1->CR1 = (USART1->CR1 | USART_CR1_UE | USART_CR1_TE | USART_CR1_RE | USART_CR1_RXNEIE | USART_CR3_EIE);
     // Enable interruption with irq extern number 37 (USART1)
     // Usart interrupts
     NVIC_EnableIRQ(37); // elle est déclenchée si RXNEIE = 1 (le bit est set automatiquement)
@@ -119,4 +130,3 @@ uint32_t uart_checksum(int nb_bits){
     }
     return s;
 }
-
