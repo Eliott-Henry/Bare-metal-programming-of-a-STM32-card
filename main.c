@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include "irq.h"
 #include "buttons.h"
+#include "timer.h"
 
 int fibo(int n){
     
@@ -25,8 +26,10 @@ int main(){
     irq_init();
     button_init();
     uart_init(38400);
+    timer_init(1000000);
     matrix_init();
     //test_pixels();
     test_static();
+    
     return 0;
 }
