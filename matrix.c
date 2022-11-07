@@ -16,7 +16,7 @@ void test_static(){
 
         deactivate_rows();
         // on indique directement la ligne correspondante
-        mat_set_row(i, &image[8*i]);
+        mat_set_row(i, &image_trame[8*i]);
 
         // Pour afficher l'image de la trame:
         // mat_set_row(i, &trame[8*i]);

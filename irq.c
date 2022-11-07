@@ -97,8 +97,9 @@ MAKE_DEFAULT_HANDLER(TSC_IRQHandler);
 MAKE_DEFAULT_HANDLER(LCD_IRQHandler);
 MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
-MAKE_DEFAULT_HANDLER(FPU_IRQHandler)
-void *vector_table[] __attribute__((aligned(512)))= {
+MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
+
+void *vector_table[] __attribute__((aligned(512))) = {
     // Stack and Reset Handler
     &_stack_start,            /* Top of stack */
     _start,             /* Reset handler */
