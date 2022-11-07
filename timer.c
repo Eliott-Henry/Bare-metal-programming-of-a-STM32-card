@@ -14,6 +14,7 @@ void timer_init(int max_us){
     // On met la DIR à 0 donc en mode upcounting
     TIM2->CR1 = (TIM2->CR1 & ~TIM_CR1_DIR);
 
+
     // Il faut PSC contienne 79 car fck_psc = 80MHz et on veut fck_psc / (PSC + 1) = 1MHz
     TIM2->PSC = 79;
 
@@ -32,6 +33,8 @@ void timer_init(int max_us){
 
 void TIM2_IRQHandler(){
     // si la led verte est allumée
+    TIM2->SR &= ~ TIM_SR_UIF;
+
     if(GPIOB->ODR & GPIO_ODR_OD14){
         led_g_off();
     }
