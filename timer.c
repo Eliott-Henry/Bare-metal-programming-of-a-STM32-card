@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "stm32l475xx.h"
 #include "led.h"
+#include "matrix.h"
 
 void timer_init(int max_us){
 
@@ -34,11 +35,5 @@ void timer_init(int max_us){
 void TIM2_IRQHandler(){
     // si la led verte est allumée
     TIM2->SR &= ~ TIM_SR_UIF;
-
-    if(GPIOB->ODR & GPIO_ODR_OD14){
-        led_g_off();
-    }
-    else{
-        led_g_on();
-    }
+    print_line_matrix();
 }

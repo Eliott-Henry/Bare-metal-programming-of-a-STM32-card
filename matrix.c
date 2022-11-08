@@ -6,6 +6,16 @@
 extern rgb_color image[64];
 rgb_color image_trame[64];
 
+void print_line_matrix(){
+    static uint8_t current_line_matrix = 0;
+    if(current_line_matrix == 8){
+        current_line_matrix = 0;
+    }
+    deactivate_rows();
+    mat_set_row(current_line_matrix, &image[8*current_line_matrix]);
+    current_line_matrix++;
+}
+
 void test_static(){
     int i = 0;
     while(1)

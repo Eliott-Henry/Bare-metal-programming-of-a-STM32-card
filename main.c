@@ -26,10 +26,11 @@ int main(){
     irq_init();
     button_init();
     uart_init(38400);
-    timer_init(1000000);
+    // On donne le compteur max en microsecondes (de manière à afficher 60 fois toute l'image par seconde)
+    timer_init(1000000/(60*8));
     matrix_init();
     //test_pixels();
-    test_static();
+    //test_static();
     
     return 0;
 }
