@@ -16,12 +16,12 @@ TARGET_MACH = $(TARGET_ARCH)
 
 
 EXE = prog
-OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o matrix.o irq.o buttons.o timer.o
+OBJS = main.o crt0.o init.o memfuncs.o led.o uart.o matrix.o irq.o buttons.o timer.o clocks.o
 
 all: $(EXE)
 
 $(EXE): $(OBJS)
-	$(CC) -g $(LDFLAGS)  $^ clocks.o -o $@
+	$(CC) -g $(LDFLAGS)  $^ -o $@
 
 # Pour se connecter
 connect:
