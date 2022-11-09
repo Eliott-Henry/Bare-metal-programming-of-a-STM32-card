@@ -3,6 +3,7 @@
 #include "uart.h"
 #include <stddef.h>
 #include "matrix.h"
+#include "led.h"
 // Read USART Description p.1335
 
 // la trame courante que l'on va modifier avec le USART_Handler
@@ -15,11 +16,11 @@ void USART1_IRQHandler(){
     uint8_t octet = uart_getchar();
 
     if(USART1->ISR & USART_ISR_ORE){
-        USART1->ICR |= USART_ICR_ORECF;
+        USART1->ICR |= USART_ICR_ORECF; // clear flag
         error_flag = 1;
     }
     else if(USART1->ISR & USART_ISR_FE){
-       USART1->ICR |= USART_ICR_FECF;
+       USART1->ICR |= USART_ICR_FECF; // clear flag
        error_flag = 1;
     }
     else{
@@ -29,7 +30,7 @@ void USART1_IRQHandler(){
         }
     }
 
-    if (error_flag==0){
+    if (error_flag==0 && octet != 0xFF){
         uint8_t color = current_octet % 3;
         uint8_t pixel = current_octet / 3;
     
@@ -48,7 +49,6 @@ void USART1_IRQHandler(){
         current_octet = -1;
     }
     current_octet++;
-    
 }
 
 void uart_init(int baudrate){

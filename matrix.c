@@ -12,29 +12,18 @@ void print_line_matrix(){
         current_line_matrix = 0;
     }
     deactivate_rows();
-    mat_set_row(current_line_matrix, &image[8*current_line_matrix]);
+    mat_set_row(current_line_matrix, &image_trame[8*current_line_matrix]);
     current_line_matrix++;
 }
 
 void test_static(){
-    int i = 0;
     while(1)
     {
-        if(i == 8){
-            i = 0;
-        } 
-
-        deactivate_rows();
-        // on indique directement la ligne correspondante
-        mat_set_row(i, &image_trame[8*i]);
-
-        // Pour afficher l'image de la trame:
-        // mat_set_row(i, &trame[8*i]);
+        print_line_matrix();
 
         for(int k = 0; k < 1000; k++){
             asm volatile("nop");
         }
-        i++;
     }
 }
 
