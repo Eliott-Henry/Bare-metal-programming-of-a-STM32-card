@@ -13,20 +13,27 @@ ENTRY(_start)
 
 SECTIONS
 {
+    .vec_table : {
+        *(.vec_table)
+    } > flash
+
     .text : {
         *(.text)
-    } > sram1
+    } > flash
+    
+
+    .data : {
+        __data_start = .;
+        *(.data)
+        __data_end = .;
+    } > sram1 AT > flash
  
     .rodata :{
         image = .;
         ./image.raw
         *(.rodata)
-    } > sram1
-    
-    .data : {
-        *(.data)
-    } > sram1
- 
+    } > flash
+
     .bss : {
         __bss_start = .;
         *(.bss) *(COMMON)
@@ -35,3 +42,4 @@ SECTIONS
 }
 
 _stack_start = ORIGIN(sram2) + LENGTH(sram2);
+_start_data_flash = LOADADDR(.data);

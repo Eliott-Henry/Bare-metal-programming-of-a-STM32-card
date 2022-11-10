@@ -64,16 +64,6 @@ void matrix_init(){
     GPIOC->OSPEEDR = (GPIOC->OSPEEDR & ~GPIO_OSPEEDR_OSPEED3) | (0b11 << GPIO_OSPEEDR_OSPEED3_Pos);
     GPIOC->OSPEEDR = (GPIOC->OSPEEDR & ~GPIO_OSPEEDR_OSPEED4) | (0b11 << GPIO_OSPEEDR_OSPEED4_Pos);
     GPIOC->OSPEEDR = (GPIOC->OSPEEDR & ~GPIO_OSPEEDR_OSPEED5) | (0b11 << GPIO_OSPEEDR_OSPEED5_Pos);
-
-    // Initialisation de certaines broches :
-    /*
-    RST : 0 (reset le DM163) (PC3)
-    LAT : 1 (PC4)
-    SB : 1 (PC5)
-    
-    SCK et SDA : 0 (PB1 PA4)
-    C0 à C7 : 0 (éteint toutes les lignes) (PB2 PA15 PA2 PA7 PA6 PA5 PB0 PA3)
-    */
     
     RST(0);
     LAT(1);

@@ -99,10 +99,10 @@ MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
 MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
 
-void *vector_table[] __attribute__((aligned(512))) = {
+void *vector_table[] __attribute__((section(".vec_table"))) = {
     // Stack and Reset Handler
     &_stack_start,            /* Top of stack */
-    _start,             /* Reset handler */
+    _start,             /* Reset handler */ // Ici l'adresse est bien paire (on a 0x2000002c avec objdump -D)
 
     // ARM internal exceptions            
     NMI_Handler,        /* NMI handler */
